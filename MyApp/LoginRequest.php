@@ -1,10 +1,22 @@
 <?php
-class LoginRequest implements Request
+class LoginRequest
 {
-    protected $container = array();
+    private $email;
+    private $password;
 
-    public function __construct( array $params = array() )
+    public function __construct( $email, $password )
     {
-        $this->container = $params;
+        $this->email = $email;
+        $this->password = $password;
+    }
+
+    public function getEmail()
+    {
+        return $this->email;
+    }
+
+    public function getPassword()
+    {
+        return $this->password;
     }
 }

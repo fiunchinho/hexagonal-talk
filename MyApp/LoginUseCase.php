@@ -4,8 +4,9 @@ class LoginUseCase
 	/**
 	 * The use case has some dependencies. It asks for them in the constructor, because without them it can't work.
 	 */
-	public function __construct( UserRepository $user_repo, PasswordEncoder $password_encoder )
+	public function __construct( SessionInterface $session, UserRepository $user_repo, PasswordEncoder $password_encoder )
 	{
+		$this->session		= $session;
 		$this->user_repo	= $user_repo;
 		$this->encoder 		= $password_encoder;
 	}
@@ -17,7 +18,7 @@ class LoginUseCase
 	 */
 	public function execute( Request $request )
 	{
-		if ( $this->user_repo->isUserLogged() )
+		if ( $this->session->isUserLogged() )
 		{
 			throw new AlreadyLoggedInException( 'User is already logged in' );
 		}

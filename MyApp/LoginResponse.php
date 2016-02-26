@@ -1,12 +1,29 @@
 <?php
 class LoginResponse
 {
-	public 		$user;
-	protected 	$params = array();
+	private $id;
+	private $name;
+	private $email;
 
-	public function __construct( \MyApp\Entity\User $user, array $params = array() )
+	public function __construct( User $user )
 	{
-		$this->user 	= $user;
-		$this->params 	= $params;
+		$this->id 		= $user->getId();
+		$this->name 	= $user->getName();
+		$this->email 	= $user->getEmail();
+	}
+
+	public function getId()
+	{
+		return $this->id;
+	}
+
+	public function getName()
+	{
+		return $this->name;
+	}
+
+	public function getEmail()
+	{
+		return $this->email;
 	}
 }

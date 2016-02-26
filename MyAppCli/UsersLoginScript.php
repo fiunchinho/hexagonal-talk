@@ -24,17 +24,11 @@ class LoginCommand extends Command
         try
 		{
 			// Create LoginRequest with the required parameters
-			$request 	= new \MyApp\UseCase\LoginRequest(
-				array(
-					'email' 	=> $input->getArgument( 'username' ),
-					'password' 	=> $input->getArgument( 'password' )
-				)
-			);
+			$request 	= new LoginRequest($input->getArgument('username'), $input->getArgument('password'));
 
 			// Create our Use Case, that transforms the LoginRequest into a LoginResponse
-			$user_repo 	= $app['repositories.user'];
-			$use_case 	= new \MyApp\UseCase\Login( $user_repo, $app['password_encoder'] );
-			$response 	= $use_case->execute( $request );
+			$use_case 	= new \MyApp\UseCase\Login( $app['session'], $app['repositories.user'], $app['password_encoder'] );
+			$use_case->execute( $request );
 
 			$output->writeln( "<info>Success!</info>");
 		}
